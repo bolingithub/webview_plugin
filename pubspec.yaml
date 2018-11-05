@@ -1,8 +1,8 @@
 name: webview_plugin
 description: A new Flutter plugin.
 version: 0.0.1
-author:
-homepage:
+author: h-bolin
+homepage: https://github.com/bolingithub/webview_plugin
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
