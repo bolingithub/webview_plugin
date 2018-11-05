@@ -21,7 +21,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: FlutterWebView(),
+        body: FlutterWebView(onWebCreated: (controller){
+          controller.loadUrl("http://storybank.one:3001/");
+        },),
       ),
     );
   }

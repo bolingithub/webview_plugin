@@ -2,7 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+typedef void WebViewCreatedCallback(WebController controller);
+
 class FlutterWebView extends StatefulWidget {
+  final WebViewCreatedCallback onWebCreated;
+
+  FlutterWebView({this.onWebCreated});
+
   @override
   _FlutterWebViewState createState() => _FlutterWebViewState();
 }
@@ -23,11 +29,22 @@ class _FlutterWebViewState extends State<FlutterWebView> {
   }
 
   Future<void> onPlatformCreated(id) async {
-    /*if (widget.onWebCreated == null) {
+    if (widget.onWebCreated == null) {
       return;
     }
-    widget.onWebCreated(new WebController.init(id));*/
-    MethodChannel _channel = new MethodChannel('ponnamkarthik/flutterwebview_$id');
-    _channel.invokeMethod('loadUrl', 'https://www.baidu.com/');
+    widget.onWebCreated(new WebController.init(id));
+  }
+}
+
+class WebController {
+  MethodChannel _channel;
+
+  WebController.init(int id) {
+    _channel = new MethodChannel('ponnamkarthik/flutterwebview_$id');
+  }
+
+  Future<void> loadUrl(String url) async {
+    assert(url != null);
+    return _channel.invokeMethod('loadUrl', url);
   }
 }
